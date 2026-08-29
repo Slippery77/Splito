@@ -23,4 +23,14 @@ export class UserRepository {
         const result =  await this.pool.query(sql,[email, password, display_name])
         return result.rows[0]
     };
+
+    async findUserIdByEmail(email :string){
+        const sql = `
+            SELECT user_id
+            FROM users
+            WHERE email = $1;
+        `
+        const result = await this.pool.query(sql,[email]);
+        return result.rows[0] ?? null;
+    }
 }
