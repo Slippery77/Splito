@@ -42,7 +42,6 @@ export class ExpenseService{
                 const split = dto.splits[i];
                 await this.expenseRepository.createSplit(client,expense.expense_id, split.userId, split.shareAmount);
             }
-
             
             await client.query('COMMIT')
             return expense;
