@@ -24,7 +24,7 @@ export class GroupRepository{
     }    
     async showMember(group_id:string){
         const sql = `
-            SELECT email, users.display_name
+            SELECT users.user_id ,email, users.display_name
             FROM group_members gm 
             JOIN users ON gm.user_id = users.user_id
             WHERE gm.group_id = $1;
@@ -53,6 +53,16 @@ export class GroupRepository{
     }
 
     async checkSameUser(group_id:string, user_id:string){
+        const sql = `
+            SELECT *
+            FROM group_members
+            WHERE group_id = $1 and user_id = $2;
+        `
+        const result = await this.pool.query(sql,[group_id,user_id]);
+        return result.rows[0] ?? null
+    }
+
+    async isMember(group_id:string, user_id:string){
         const sql = `
             SELECT *
             FROM group_members

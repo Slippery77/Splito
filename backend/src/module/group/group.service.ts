@@ -1,4 +1,4 @@
-import { Injectable, Inject, NotFoundException, UnauthorizedException,ConflictException } from "@nestjs/common";
+import { Injectable, Inject, NotFoundException, ConflictException, ForbiddenException } from "@nestjs/common";
 import { GroupRepository } from "./group.repository";
 import { CreateGroupDto } from "./dto/creategroup.dto";
 import { UserService } from "../users/users.service";
@@ -60,5 +60,12 @@ export class GroupService{
             messages: "Successfully invite user",
             inviteMember
         }
+    }
+    async isMember(group_id:string , userId:string){
+        const member = await this.groupRepository.checkSameUser(group_id,userId)
+        if(!member){
+            throw new ForbiddenException("user นี้ไม่อยู่ในกลุ่ม");
+        }
+        return userId;
     }
 }
