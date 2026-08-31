@@ -3,7 +3,7 @@ import { ExpenseService } from "./expense.service";
 import { AuthGuard } from "../auth/auth.guard";
 import { ExpenseDto } from "./dto/expense.dto";
 
-@Controller('group/:groupId/createExpense')
+@Controller('group/:groupId/expenses')
 export class ExpenseController{
     constructor(private expenseService:ExpenseService){}
     

@@ -9,5 +9,6 @@ import { UserModule } from '../users/users.module';
     imports:[GroupModule, UserModule],
     providers:[ExpenseService,ExpenseRepository],
     controllers:[ExpenseController],
+    exports:[ExpenseService,ExpenseRepository]
 })
 export class ExpenseModule{};
